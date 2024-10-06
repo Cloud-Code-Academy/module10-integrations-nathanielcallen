@@ -24,6 +24,7 @@ public with sharing class DummyJSONCalloutTest {
 			FROM Contact
 			WHERE DummyJSON_Id__c = '1'
 		];
+		System.debug(cont);
 
 		// Assert statements to ensure that the values in the created contact match what was in our mock response.
 		System.assertEquals('test@example.com', cont.Email, 'Email does not match your value: ' + cont.Email);
@@ -77,6 +78,7 @@ public with sharing class DummyJSONCalloutTest {
 
 		// Retrieve the updated contact to verify the changes
 		Contact updatedContact = [SELECT DummyJSON_Last_Updated__c FROM Contact WHERE Id = :testContact.Id];
+		System.debug(updatedContact);
 
 		// Ensure that the DummyJSON_Last_Updated__c field was updated
 		System.assertNotEquals(
@@ -116,7 +118,9 @@ public with sharing class DummyJSONCalloutTest {
 	static void testCreateContactFromJson() {
 		// JSON string that represents the response data
 		String jsonResponse = DummyJSONCalloutMockGenerator.DUMMY_JSON_USER_PAYLOAD;
-		
+		//public static String DUMMY_JSON_USER_PAYLOAD = '{"id": 1, "firstName":"Johnny", "lastName":"Test", 
+			//"email": "test@example.com", "phone": "+123456789", "birthDate": "1990-01-01", 
+			//"address": {"address": "123 Test St", "city": "Test City", "postalCode": "12345", "state": "TS", "country": "Testland"}}';
 		// Call the method
 		Contact cont = DummyJSONCallout.createContactFromJson(jsonResponse);
 
